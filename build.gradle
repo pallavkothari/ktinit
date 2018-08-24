@@ -29,7 +29,7 @@ dependencies {
     compile("com.google.guava:guava:${guava_version}")
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
-	testCompile "io.kotlintest:kotlintest:${kotlintest_version}"
-	testCompile "com.github.stefanbirkner:system-rules:${system-rules_version}"
+	testCompile("io.kotlintest:kotlintest:${kotlintest_version}")
+	testCompile("com.github.stefanbirkner:system-rules:${system_rules_version}")
     testCompile("com.google.truth:truth:${truth_version}")
 }
