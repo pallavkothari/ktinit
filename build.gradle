@@ -23,6 +23,10 @@ repositories {
 }
 
 dependencies {
+    compile "org.slf4j:slf4j-api:1.8.0-beta2"
+    compile "org.slf4j:slf4j-simple:1.8.0-beta2"
+	compile "com.jayway.jsonpath:json-path:2.4.0"
+	compile "org.zeroturnaround:zt-exec:1.10"
     compile "com.github.spullara.mustache.java:compiler:$mustache_version"
     compile("com.squareup.okhttp3:okhttp:${okhttp_version}")
     compile("com.google.code.gson:gson:${gson_version}")
@@ -32,4 +36,10 @@ dependencies {
 	testCompile("io.kotlintest:kotlintest:${kotlintest_version}")
 	testCompile("com.github.stefanbirkner:system-rules:${system_rules_version}")
     testCompile("com.google.truth:truth:${truth_version}")
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
