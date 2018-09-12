@@ -3,9 +3,34 @@ package com.pk
 import com.google.common.io.Resources
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import java.io.File
 import java.io.StringReader
 
 class KtInitTests {
+
+    @Test
+    fun genProject() {
+        val groupId = "com.pk"
+        val artifactId = "test"
+        val inputs = mutableMapOf<Option, Any>(
+            Option.GROUP_ID to groupId,
+            Option.ARTIFACT_ID to artifactId
+        )
+        val params = ProjectParams(
+            groupId = groupId,
+            artifactId = artifactId,
+            location = File("/tmp/foobar"),
+            overlays = buildOverlaysForSimpleProject(
+                inputs,
+                listOf(
+                    Dependency("compile", "com.google.guava", "guava", pinnedVersion = "26.0-jre"),
+                    Dependency("testCompile", "com.google.truth", "truth")
+                )
+            )
+        )
+
+        KtGradleProject(params).create()
+    }
 
     @Test
     fun stache() {
@@ -34,7 +59,7 @@ class KtInitTests {
             "groupId" to "com.pk",
             "artifactId" to "testing",
             "mainClass" to "com.pk.MainKt",
-            "deps" to listOf<Dependency>(Dependency("compile", "com.google.guava", "guava"))
+            "deps" to listOf(Dependency("compile", "com.google.guava", "guava"))
         )
         val merged = Mustache.merge(StringReader(template), ctx)
         println("merged = ${merged}")

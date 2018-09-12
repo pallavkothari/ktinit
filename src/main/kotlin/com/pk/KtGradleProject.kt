@@ -8,15 +8,15 @@ import org.zeroturnaround.exec.ProcessInitException
 import java.io.File
 import java.io.StringReader
 
-class KtGradleProject(private val inputs: MutableMap<Option, Any>, val overlays: List<Overlay>) {
+class KtGradleProject(private val params: ProjectParams) {
 
     fun create() {
-        val proj = File("/tmp", inputs[Option.ARTIFACT_ID].toString())
+        val proj = File(params.location, params.artifactId)
         proj.mkdirs()
 
         exec(dir = proj, cmd = listOf("gradle", "init"), help = "please install gradle")
 
-        process(overlays, proj)
+        process(params.overlays, proj)
 
         exec(dir = proj, cmd = listOf("make"))
         exec(dir = proj, cmd = listOf("make", "run"))
@@ -70,9 +70,10 @@ data class Overlay(
 )
 
 data class Dependency(val scope: String, val group: String, val artifact: String, val pinnedVersion: String = "") {
-    val version: String by lazy {
-        if (pinnedVersion.isNotEmpty()) pinnedVersion
-        else {
+    private val version: String by lazy {
+        if (pinnedVersion.isNotEmpty()) {
+            pinnedVersion
+        } else {
             MavenVersion(group, artifact).getLatest()
         }
     }

@@ -1,6 +1,8 @@
 package com.pk
 
+import com.google.common.io.Files
 import com.pk.Option.*
+import java.io.File
 
 fun main(args: Array<String>) {
     val inputs = mutableMapOf<Option, Any>()
@@ -9,15 +11,21 @@ fun main(args: Array<String>) {
         val input = readLine()!!
         inputs[option] = input
     }
-    println("inputs = ${inputs}")
+    val projectParams = ProjectParams(
+        groupId = inputs[GROUP_ID] as String,
+        artifactId = inputs[ARTIFACT_ID] as String,
+        overlays = buildOverlaysForSimpleProject(inputs)
+    )
 
-    // tack on other params
-    inputs[MAIN_CLASS] = "${inputs[GROUP_ID]}.${inputs[ARTIFACT_ID]}.MainKt"
-    inputs[DEPS] = dependencies()
-
-    KtGradleProject(inputs, buildOverlaysForSimpleProject(inputs)).create()
-
+    KtGradleProject(projectParams).create()
 }
+
+data class ProjectParams(
+    val groupId: String,
+    val artifactId: String,
+    val location: File = Files.createTempDir(),
+    val overlays: List<Overlay>
+)
 
 // TODO Option to pass these in
 fun dependencies(): List<Dependency> = listOf(
@@ -31,7 +39,10 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("testCompile", "com.google.truth", "truth")
 )
 
-fun buildOverlaysForSimpleProject(inputs: MutableMap<Option, Any>): List<Overlay> {
+fun buildOverlaysForSimpleProject(inputs: MutableMap<Option, Any>, deps: List<Dependency> = dependencies()): List<Overlay> {
+    // build ctx to pass to mustache
+    inputs[MAIN_CLASS] = "${inputs[GROUP_ID]}.${inputs[ARTIFACT_ID]}.MainKt"
+    inputs[DEPS] = deps
     val ctx = inputs.mapKeys { it.key.templateName }
     val group = inputs[GROUP_ID]!!.toString().replace(".", "/")
     val pkg = "$group/${inputs[ARTIFACT_ID]}"
