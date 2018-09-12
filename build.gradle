@@ -23,19 +23,21 @@ repositories {
 }
 
 dependencies {
-    compile "org.slf4j:slf4j-api:1.8.0-beta2"
-    compile "org.slf4j:slf4j-simple:1.8.0-beta2"
-	compile "com.jayway.jsonpath:json-path:2.4.0"
-	compile "org.zeroturnaround:zt-exec:1.10"
-    compile "com.github.spullara.mustache.java:compiler:$mustache_version"
-    compile("com.squareup.okhttp3:okhttp:${okhttp_version}")
-    compile("com.google.code.gson:gson:${gson_version}")
-    compile("com.google.guava:guava:${guava_version}")
-	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	compile("org.jetbrains.kotlin:kotlin-reflect")
-	testCompile("io.kotlintest:kotlintest:${kotlintest_version}")
-	testCompile("com.github.stefanbirkner:system-rules:${system_rules_version}")
-    testCompile("com.google.truth:truth:${truth_version}")
+	implementation 'com.squareup.moshi:moshi:1.6.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.6.0'
+    implementation "org.slf4j:slf4j-api:1.8.0-beta2"
+    implementation "org.slf4j:slf4j-simple:1.8.0-beta2"
+	implementation "com.jayway.jsonpath:json-path:2.4.0"
+	implementation "org.zeroturnaround:zt-exec:1.10"
+    implementation "com.github.spullara.mustache.java:compiler:$mustache_version"
+    implementation("com.squareup.okhttp3:okhttp:${okhttp_version}")
+    implementation("com.google.code.gson:gson:${gson_version}")
+    implementation("com.google.guava:guava:${guava_version}")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	testImplementation("io.kotlintest:kotlintest:${kotlintest_version}")
+	testImplementation("com.github.stefanbirkner:system-rules:${system_rules_version}")
+    testImplementation("com.google.truth:truth:${truth_version}")
 }
 
 test {

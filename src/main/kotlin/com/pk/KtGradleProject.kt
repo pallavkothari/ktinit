@@ -4,7 +4,6 @@ import com.google.common.io.CharSource
 import com.google.common.io.Files
 import com.google.common.io.Resources
 import org.zeroturnaround.exec.ProcessExecutor
-import org.zeroturnaround.exec.ProcessInitException
 import java.io.File
 import java.io.StringReader
 
@@ -69,7 +68,12 @@ data class Overlay(
     val ctx: Map<String, Any>
 )
 
-data class Dependency(val scope: String, val group: String, val artifact: String, val pinnedVersion: String = "") {
+data class Dependency(
+    val scope: String = "implementation",
+    val group: String,
+    val artifact: String,
+    val pinnedVersion: String = ""
+) {
     private val version: String by lazy {
         if (pinnedVersion.isNotEmpty()) {
             pinnedVersion

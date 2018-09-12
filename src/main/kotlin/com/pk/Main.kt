@@ -29,14 +29,14 @@ data class ProjectParams(
 
 // TODO Option to pass these in
 fun dependencies(): List<Dependency> = listOf(
-    Dependency("compile", "org.slf4j", "slf4j-api"),
-    Dependency("compile", "org.slf4j", "slf4j-simple"),
-    Dependency("compile", "com.squareup.okhttp3", "okhttp"),
-    Dependency("compile", "com.google.code.gson", "gson"),
-    Dependency("compile", "com.google.guava", "guava"),
-    Dependency("testCompile", "io.kotlintest", "kotlintest"),
-    Dependency("testCompile", "com.github.stefanbirkner", "system-rules"),
-    Dependency("testCompile", "com.google.truth", "truth")
+    Dependency("implementation", "org.slf4j", "slf4j-api"),
+    Dependency("implementation", "org.slf4j", "slf4j-simple"),
+    Dependency("implementation", "com.squareup.okhttp3", "okhttp"),
+    Dependency("implementation", "com.google.code.gson", "gson"),
+    Dependency("implementation", "com.google.guava", "guava"),
+    Dependency("testImplementation", "io.kotlintest", "kotlintest"),
+    Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
+    Dependency("testImplementation", "com.google.truth", "truth")
 )
 
 fun buildOverlaysForSimpleProject(inputs: MutableMap<Option, Any>, deps: List<Dependency> = dependencies()): List<Overlay> {
