@@ -43,7 +43,7 @@ class KtGradleProject(private val params: ProjectParams) {
     private fun setupGit(proj: File) {
         exec(dir = proj, cmd = listOf("git", "init"))
         exec(dir = proj, cmd = listOf("git", "add", "."))
-        exec(dir = proj, cmd = listOf("git", "commit", "-m", "'init'"))
+        exec(dir = proj, cmd = listOf("git", "commit", "-m", "'init'", "--allow-empty"))
     }
 
     private fun exec(dir: File, cmd: List<String>, help: String = "") {
@@ -55,8 +55,8 @@ class KtGradleProject(private val params: ProjectParams) {
                 .redirectOutput(System.out)
                 .redirectErrorAlsoTo(System.out)
                 .execute()
-        } catch (e: ProcessInitException) {
-            println(e.localizedMessage)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
             println(help)
             System.exit(1)
         }
