@@ -2,22 +2,68 @@ package com.pk
 
 import com.google.common.io.Files
 import com.pk.Option.*
+import com.xenomachina.argparser.ArgParser
+import com.xenomachina.argparser.DefaultHelpFormatter
+import com.xenomachina.argparser.default
+import com.xenomachina.argparser.mainBody
 import java.io.File
 
-fun main(args: Array<String>) {
-    val inputs = mutableMapOf<Option, Any>()
-    for (option in listOf(GROUP_ID, ARTIFACT_ID)) {
-        print("enter ${option.name}:")
-        val input = readLine()!!
-        inputs[option] = input
-    }
-    val projectParams = ProjectParams(
-        groupId = inputs[GROUP_ID] as String,
-        artifactId = inputs[ARTIFACT_ID] as String,
-        overlays = buildOverlaysForSimpleProject(inputs)
+class MyArgs(parser: ArgParser) {
+    val currentDir by parser.flagging(
+        "-c", "--current-dir",
+        help = "create project in current directory"
     )
 
-    KtGradleProject(projectParams).create()
+    val groupId by parser.storing(
+        "-g", "--group-id",
+        help = "the group id for this project"
+    ).default("com.example")
+
+    val artifactId by parser.storing(
+        "-a", "--artifact-id",
+        help = "the artifact id for this project"
+    ).default("ktfoo")
+
+    val dependencies by parser.adding(
+        "-d", "--dep",
+        help = "provide additional dependencies in the format <groupId>:<artifactId>[:version]"
+    ) {
+        val parts = this.split(":")
+        when (parts.size) {
+            2 -> Dependency(group = parts[0], artifact = parts[1])
+            3 -> Dependency(group = parts[0], artifact = parts[1], pinnedVersion = parts[2])
+            else -> throw Exception(this)
+        }
+    }.default<List<Dependency>>(listOf())
+}
+
+fun main(args: Array<String>) = mainBody {
+    ArgParser(
+        args,
+        helpFormatter = DefaultHelpFormatter(
+            epilogue = "Sample usage: " +
+                    "ktinit --group-id com.pk --artifact-id foofoo " +
+                    "-d com.github.piotrkot:mustache -d org.webjars.bower:mustache"
+        )
+    ).parseInto(::MyArgs).run {
+        if (currentDir) println("Creating project in current directory.")
+
+        val inputs = mutableMapOf<Option, Any>(
+            GROUP_ID to groupId,
+            ARTIFACT_ID to artifactId
+        )
+
+        val projectParams = ProjectParams(
+            groupId = groupId,
+            artifactId = artifactId,
+            overlays = buildOverlaysForSimpleProject(inputs, deps = dependencies.union(dependencies())),
+            location = if (currentDir) File(System.getProperty("user.dir")) else Files.createTempDir()
+        )
+
+        KtGradleProject(projectParams).create()
+
+        if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options. ")
+    }
 }
 
 data class ProjectParams(
@@ -27,7 +73,6 @@ data class ProjectParams(
     val overlays: List<Overlay>
 )
 
-// TODO Option to pass these in
 fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "org.slf4j", "slf4j-api"),
     Dependency("implementation", "org.slf4j", "slf4j-simple"),
@@ -39,7 +84,10 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("testImplementation", "com.google.truth", "truth")
 )
 
-fun buildOverlaysForSimpleProject(inputs: MutableMap<Option, Any>, deps: List<Dependency> = dependencies()): List<Overlay> {
+fun buildOverlaysForSimpleProject(
+    inputs: MutableMap<Option, Any>,
+    deps: Iterable<Dependency> = dependencies()
+): List<Overlay> {
     // build ctx to pass to mustache
     inputs[MAIN_CLASS] = "${inputs[GROUP_ID]}.${inputs[ARTIFACT_ID]}.MainKt"
     inputs[DEPS] = deps
@@ -58,10 +106,11 @@ fun buildOverlaysForSimpleProject(inputs: MutableMap<Option, Any>, deps: List<De
     )
 }
 
+// keeping these around for mustache context keys
 enum class Option(val templateName: String) {
     GROUP_ID("groupId"),
     ARTIFACT_ID("artifactId"),
     MAIN_CLASS("mainClass"),
-    DEPS("deps")
+    DEPS("deps");
 }
 

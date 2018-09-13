@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+	implementation "com.xenomachina:kotlin-argparser:2.0.7"
 	implementation 'com.squareup.moshi:moshi:1.6.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.6.0'
     implementation "org.slf4j:slf4j-api:1.8.0-beta2"

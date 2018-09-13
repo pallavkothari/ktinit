@@ -2,14 +2,14 @@
 
 CLI to bootstrap kt projects.
 
-### build
+### build and install
 ```
-make
+make install
 ```
 
 ### run 
 ```
-make run
+ktinit
 ```
 
 
