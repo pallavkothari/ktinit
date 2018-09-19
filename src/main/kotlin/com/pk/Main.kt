@@ -1,5 +1,6 @@
 package com.pk
 
+import com.google.common.base.CaseFormat
 import com.google.common.io.Files
 import com.pk.Option.*
 import com.xenomachina.argparser.ArgParser
@@ -22,7 +23,9 @@ class MyArgs(parser: ArgParser) {
     val artifactId by parser.storing(
         "-a", "--artifact-id",
         help = "the artifact id for this project"
-    ).default("ktfoo")
+    ) {
+        CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camelcase
+    }.default("ktfoo")
 
     val dependencies by parser.adding(
         "-d", "--dep",
