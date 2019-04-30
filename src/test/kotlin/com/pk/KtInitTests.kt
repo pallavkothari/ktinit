@@ -24,7 +24,10 @@ class KtInitTests {
                 inputs,
                 listOf(
                     Dependency("compile", "com.google.guava", "guava", pinnedVersion = "26.0-jre"),
-                    Dependency("testCompile", "com.google.truth", "truth")
+                    Dependency("testCompile", "com.google.truth", "truth"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params")
                 )
             )
         )

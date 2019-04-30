@@ -84,7 +84,10 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "com.google.guava", "guava"),
     Dependency("testImplementation", "io.kotlintest", "kotlintest"),
     Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
-    Dependency("testImplementation", "com.google.truth", "truth")
+    Dependency("testImplementation", "com.google.truth", "truth"),
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params")
 )
 
 fun buildOverlaysForSimpleProject(
