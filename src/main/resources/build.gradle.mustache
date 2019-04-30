@@ -44,3 +44,10 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+spotless {
+  kotlin {
+    // optionally takes a version
+    ktlint()
+  }
+}
