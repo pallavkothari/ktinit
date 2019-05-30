@@ -1,7 +1,10 @@
 build:
-	./gradlew build spotlessCheck install
+	./gradlew build spotlessCheck install eclipse idea
 
 run:
 	./build/install/{{artifactId}}/bin/{{artifactId}}
+
+tasks:
+	./gradlew tasks
 
 .PHONY: build
