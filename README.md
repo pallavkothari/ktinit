@@ -4,6 +4,7 @@ CLI to bootstrap kt projects.
 
 ### build and install
 ```
+brew install gradle 
 make install        ## installs at /usr/local/bin/ktinit
 ```
 
