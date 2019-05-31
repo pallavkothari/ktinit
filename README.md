@@ -4,12 +4,14 @@ CLI to bootstrap kt projects.
 
 ### build and install
 ```
-make install
+make install        ## installs at /usr/local/bin/ktinit
 ```
 
 ### run 
 ```
-ktinit
+ktinit --help
+mkdir ~/kotlin && cd ~/kotlin
+ktinit -c --group-id demo --artifact-id kotlindemo
 ```
 
 
