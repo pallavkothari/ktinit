@@ -50,7 +50,7 @@ class KtInitTests {
         assertThat(template).isEqualTo("Hello {{name}}!")
     }
 
-    fun readResource(name: String): String {
+    private fun readResource(name: String): String {
         val url = Resources.getResource(name)
         return Resources.toString(url, Charsets.UTF_8)
     }
@@ -65,7 +65,7 @@ class KtInitTests {
             "deps" to listOf(Dependency("compile", "com.google.guava", "guava"))
         )
         val merged = Mustache.merge(StringReader(template), ctx)
-        println("merged = ${merged}")
+        println("merged = $merged")
     }
 
     @Test

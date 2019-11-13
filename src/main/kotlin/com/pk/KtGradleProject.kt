@@ -6,6 +6,7 @@ import com.google.common.io.Resources
 import org.zeroturnaround.exec.ProcessExecutor
 import java.io.File
 import java.io.StringReader
+import kotlin.system.exitProcess
 
 class KtGradleProject(private val params: ProjectParams) {
 
@@ -57,7 +58,7 @@ class KtGradleProject(private val params: ProjectParams) {
         } catch (e: Exception) {
             System.err.println(e.localizedMessage)
             println(help)
-            System.exit(1)
+            exitProcess(1)
         }
     }
 }

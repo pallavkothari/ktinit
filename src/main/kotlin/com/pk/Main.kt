@@ -17,12 +17,12 @@ class MyArgs(parser: ArgParser) {
 
     val groupId by parser.storing(
         "-g", "--group-id",
-        help = "the group id for this project"
+        help = "the group ID for this project"
     ).default("com.example")
 
     val artifactId by parser.storing(
         "-a", "--artifact-id",
-        help = "the artifact id for this project"
+        help = "the artifact ID for this project"
     ) {
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camelcase
     }.default("ktfoo")
