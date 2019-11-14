@@ -2,7 +2,10 @@ package com.pk
 
 import com.google.common.base.CaseFormat
 import com.google.common.io.Files
-import com.pk.Option.*
+import com.pk.Option.ARTIFACT_ID
+import com.pk.Option.DEPS
+import com.pk.Option.GROUP_ID
+import com.pk.Option.MAIN_CLASS
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
@@ -17,12 +20,12 @@ class MyArgs(parser: ArgParser) {
 
     val groupId by parser.storing(
         "-g", "--group-id",
-        help = "the group id for this project"
+        help = "the group ID for this project"
     ).default("com.example")
 
     val artifactId by parser.storing(
         "-a", "--artifact-id",
-        help = "the artifact id for this project"
+        help = "the artifact ID for this project"
     ) {
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camelcase
     }.default("ktfoo")
@@ -45,7 +48,7 @@ fun main(args: Array<String>) = mainBody {
         args,
         helpFormatter = DefaultHelpFormatter(
             epilogue = "Sample usage: " +
-                    "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava"
+                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava"
         )
     ).parseInto(::MyArgs).run {
         if (currentDir) println("Creating project in current directory.")

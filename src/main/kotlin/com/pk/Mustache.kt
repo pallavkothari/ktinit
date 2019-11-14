@@ -1,6 +1,10 @@
 package com.pk
 
-import com.github.mustachejava.*
+import com.github.mustachejava.Binding
+import com.github.mustachejava.Code
+import com.github.mustachejava.DefaultMustacheFactory
+import com.github.mustachejava.MustacheException
+import com.github.mustachejava.TemplateContext
 import com.github.mustachejava.reflect.GuardedBinding
 import com.github.mustachejava.reflect.MissingWrapper
 import com.github.mustachejava.reflect.ReflectionObjectHandler
@@ -22,7 +26,7 @@ object Mustache {
     // blow up if a parameter is missing
     // https://github.com/spullara/mustache.java/blob/master/compiler/src/test/java/com/github/mustachejava/FailOnMissingTest.java
     init {
-        var roh: ReflectionObjectHandler = object : ReflectionObjectHandler() {
+        val roh: ReflectionObjectHandler = object : ReflectionObjectHandler() {
             override fun createBinding(name: String?, tc: TemplateContext, code: Code): Binding {
                 return object : GuardedBinding(this, name, tc, code) {
                     @Synchronized

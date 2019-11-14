@@ -3,7 +3,7 @@ package com.pk
 import com.jayway.jsonpath.JsonPath
 import okhttp3.Request
 
-class MavenVersion(val groupId: String, val artifactId: String) {
+class MavenVersion(groupId: String, artifactId: String) {
     private val url = "http://search.maven.org/solrsearch/select?q=g:${groupId}+AND+a:${artifactId}&rows=5&wt=json"
 
     fun getLatest(): String {

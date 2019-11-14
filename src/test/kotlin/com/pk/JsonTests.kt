@@ -8,7 +8,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.junit.Test
 
 
-
 class JsonTests {
 
     @Test
