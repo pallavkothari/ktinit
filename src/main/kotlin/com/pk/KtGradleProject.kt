@@ -14,7 +14,9 @@ class KtGradleProject(private val params: ProjectParams) {
         val proj = File(params.location, params.artifactId)
         proj.mkdirs()
 
-        exec(dir = proj, cmd = listOf("gradle", "init"), help = "please install gradle")
+        val userDir = System.getProperty("user.dir")
+        val gradlew = "$userDir/gradlew"
+        exec(dir = proj, cmd = listOf(gradlew, "init"), help = "please install gradle")
 
         process(params.overlays, proj)
 
