@@ -17,7 +17,7 @@ ktinit -c --group-id demo --artifact-id kotlindemo
 
 
 #### Resources
-Inspired from:
+Inspired by:
 - [oh-my-mustache](https://github.com/ekino/oh-my-mustache)
 - [slides](http://slides.com/ekino-leomillon/oh-my-mustache/)
 - [jwtctl](https://github.com/leomillon/jwtctl)
