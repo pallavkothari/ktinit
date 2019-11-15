@@ -21,8 +21,7 @@ class KtGradleProject(private val params: ProjectParams) {
         exec(dir = proj, cmd = listOf("make"))
         exec(dir = proj, cmd = listOf("make", "run"))
         setupGit(proj)
-
-        println("\uD83D\uDE31 Generated project at $proj ")
+        println("😱 Generated project at $proj ")
     }
 
     private fun process(overlays: List<Overlay>, proj: File) {

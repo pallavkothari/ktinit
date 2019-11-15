@@ -67,7 +67,7 @@ fun main(args: Array<String>) = mainBody {
 
         KtGradleProject(projectParams).create()
 
-        if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options. ")
+        if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options.")
     }
 }
 
