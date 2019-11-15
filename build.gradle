@@ -1,11 +1,11 @@
 buildscript {
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlin_version}")
-	}
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlin_version}")
+    }
 }
 
 apply plugin: 'kotlin'
@@ -19,26 +19,26 @@ sourceCompatibility = 1.8
 
 
 repositories {
-	jcenter()
+    jcenter()
 }
 
 dependencies {
-	implementation "com.xenomachina:kotlin-argparser:2.0.7"
-	implementation 'com.squareup.moshi:moshi:1.9.1'
-    implementation 'com.squareup.moshi:moshi-kotlin:1.9.1'
+    implementation "com.xenomachina:kotlin-argparser:2.0.7"
+    implementation "com.squareup.moshi:moshi:1.9.1"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.1"
     implementation "org.slf4j:slf4j-api:1.8.0-beta4"
     implementation "org.slf4j:slf4j-simple:1.8.0-beta4"
-	implementation "com.jayway.jsonpath:json-path:2.4.0"
-	implementation "org.zeroturnaround:zt-exec:1.11"
+    implementation "com.jayway.jsonpath:json-path:2.4.0"
+    implementation "org.zeroturnaround:zt-exec:1.11"
     implementation "com.github.spullara.mustache.java:compiler:$mustache_version"
-    implementation("com.squareup.okhttp3:okhttp:${okhttp_version}")
-    implementation("com.google.code.gson:gson:${gson_version}")
-    implementation("com.google.guava:guava:${guava_version}")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}")
-	implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}")
-	testImplementation("io.kotlintest:kotlintest:${kotlintest_version}")
-	testImplementation("com.github.stefanbirkner:system-rules:${system_rules_version}")
-    testImplementation("com.google.truth:truth:${truth_version}")
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.google.guava:guava:$guava_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation "io.kotlintest:kotlintest:$kotlintest_version"
+    testImplementation "com.github.stefanbirkner:system-rules:$system_rules_version"
+    testImplementation "com.google.truth:truth:$truth_version"
 }
 
 test {
