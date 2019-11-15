@@ -16,5 +16,6 @@ jobs:
     - uses: eskatos/gradle-command-action@v1
       with:
         gradle-version: current
+        arguments: build --dry-run # just test build configuration
     - name: Build with Gradle
       run: ./gradlew build
