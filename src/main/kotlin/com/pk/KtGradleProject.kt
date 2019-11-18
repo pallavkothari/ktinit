@@ -1,5 +1,6 @@
 package com.pk
 
+import com.google.common.base.Preconditions
 import com.google.common.io.CharSource
 import com.google.common.io.Files
 import com.google.common.io.Resources
@@ -12,10 +13,7 @@ class KtGradleProject(private val params: ProjectParams) {
 
     fun create() {
         val proj = File(params.location, params.artifactId)
-        proj.mkdirs()
-
-        val userDir = System.getProperty("user.dir")
-        val gradlew = "$userDir/gradlew"
+        val gradlew = setupGradleWrapper(proj)
         exec(dir = proj, cmd = listOf(gradlew, "init"), help = "please install gradle")
 
         process(params.overlays, proj)
@@ -25,6 +23,27 @@ class KtGradleProject(private val params: ProjectParams) {
         setupGit(proj)
 
         println("\uD83D\uDE31 Generated project at $proj ")
+    }
+
+    /**
+     * setup the gradle wrapper (along with the jar and properties file)
+     * under the given project directory.
+     * @return the absolute path to the (executable) gradlew script
+     */
+    private fun setupGradleWrapper(proj: File): String {
+        // there is a gradlew file checked into source control under resources
+        // at runtime we will copy it to a well known location so that we can rely on gradle being available
+        copyResourceToDir("gradlew", proj)
+
+        // do the same for the jar and properties file
+        val wrapperDir = File(proj.absolutePath + "/gradle/wrapper/")
+        copyResourceToDir("gradle-wrapper.jar", wrapperDir)
+        copyResourceToDir("gradle-wrapper.properties", wrapperDir)
+
+        // make the gradlew script executable and return the absolute path
+        val gradlew = "${proj.absolutePath}/gradlew"
+        exec(dir = proj, cmd = listOf("chmod", "+x", gradlew))
+        return gradlew
     }
 
     private fun process(overlays: List<Overlay>, proj: File) {
@@ -88,4 +107,14 @@ data class Dependency(
     override fun toString(): String {
         return "$scope \"$group:$artifact:$version\""
     }
+}
+
+// not terribly exciting: just looks up the resource identified by fileName
+// and copies it to the given destination folder
+fun copyResourceToDir(fileName: String, destFolder: File) {
+    destFolder.mkdirs()
+    Preconditions.checkArgument(destFolder.exists() && destFolder.isDirectory, "could not mkdirs for $destFolder")
+    val fileToMove = Resources.getResource(fileName)
+    val toFile = File(destFolder, fileName)
+    Resources.copy(fileToMove, toFile.outputStream())
 }
