@@ -1,3 +1,4 @@
+[![Actions Status](https://github.com/pallavkothari/ktinit/workflows/CI/badge.svg)](https://github.com/pallavkothari/ktinit/actions)
 # KtInit
 
 CLI to bootstrap kt projects.
