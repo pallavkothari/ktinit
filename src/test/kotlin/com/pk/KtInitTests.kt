@@ -19,7 +19,6 @@ class KtInitTests {
         val params = ProjectParams(
             groupId = groupId,
             artifactId = artifactId,
-            location = File("/tmp/foobar"),
             overlays = buildOverlaysForSimpleProject(
                 inputs,
                 listOf(

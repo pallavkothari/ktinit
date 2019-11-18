@@ -11,16 +11,13 @@ buildscript {
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.31"
     id "idea"
-    id "application"
     id "jacoco"
     id "com.diffplug.gradle.spotless" version "3.23.0"
-    id "eclipse"
 }
 
 apply plugin: 'jacoco'
-application {
-    mainClassName = "{{mainClass}}"
-}
+apply plugin: 'application'
+mainClassName = "{{mainClass}}"
 
 group = '{{groupId}}'
 version = '0.0.1-SNAPSHOT'
