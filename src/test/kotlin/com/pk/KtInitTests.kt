@@ -3,7 +3,6 @@ package com.pk
 import com.google.common.io.Resources
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
-import java.io.File
 import java.io.StringReader
 
 class KtInitTests {
