@@ -115,6 +115,7 @@ fun copyResourceToDir(fileName: String, destFolder: File) {
     destFolder.mkdirs()
     Preconditions.checkArgument(destFolder.exists() && destFolder.isDirectory, "could not mkdirs for $destFolder")
     val fileToMove = Resources.getResource(fileName)
-    val toFile = File(destFolder, fileName)
-    Resources.copy(fileToMove, toFile.outputStream())
+    File(destFolder, fileName).outputStream().use {
+        Resources.copy(fileToMove, it)
+    }
 }
