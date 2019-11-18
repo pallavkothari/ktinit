@@ -27,7 +27,7 @@ class MyArgs(parser: ArgParser) {
         "-a", "--artifact-id",
         help = "the artifact ID for this project"
     ) {
-        CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camelcase
+        CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camel case
     }.default("ktfoo")
 
     val dependencies by parser.adding(
@@ -67,7 +67,7 @@ fun main(args: Array<String>) = mainBody {
 
         KtGradleProject(projectParams).create()
 
-        if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options. ")
+        if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options.")
     }
 }
 
