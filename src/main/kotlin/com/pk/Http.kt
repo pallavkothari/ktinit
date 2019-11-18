@@ -18,8 +18,8 @@ object Http {
         response.use { r ->
             return MyHttpResponse(
                 r.isSuccessful,
-                r.code(),
-                r.body().use { body ->
+                r.code,
+                r.body.use { body ->
                     body?.string() ?: ""
                 })
         }
