@@ -1,5 +1,5 @@
 build:
-	./gradlew build install
+	./gradlew build spotlessCheck installDist
 
 install: build
 	mkdir -p ${HOME}/bin
@@ -10,5 +10,8 @@ install: build
 
 run:
 	ktinit
+
+spotless:
+	./gradlew spotlessApply
 
 .PHONY: build

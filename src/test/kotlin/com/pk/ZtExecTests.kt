@@ -1,16 +1,14 @@
 package com.pk
 
+import java.util.Arrays
 import junit.framework.TestCase.assertTrue
 import junit.framework.TestCase.fail
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.zeroturnaround.exec.InvalidExitValueException
 import org.zeroturnaround.exec.ProcessExecutor
 import org.zeroturnaround.exec.ProcessInitException
-import java.io.IOException
-import java.util.*
-import java.util.concurrent.TimeoutException
 
 /**
  * tests for the `zt-exec` library
@@ -18,14 +16,12 @@ import java.util.concurrent.TimeoutException
 class ZtExecTests {
 
     @Test
-    @Throws(InterruptedException::class, TimeoutException::class, IOException::class)
     fun testExitCode() {
         val exit = ProcessExecutor().command("java", "-version").execute().exitValue
         assertThat(exit, `is`(0))
     }
 
     @Test
-    @Throws(InterruptedException::class, TimeoutException::class, IOException::class)
     fun testMissingBinary() {
         var exit = -1
         try {
@@ -65,6 +61,5 @@ class ZtExecTests {
             val exitValue = e.exitValue
             assertThat(exitValue, `is`(127))
         }
-
     }
 }
