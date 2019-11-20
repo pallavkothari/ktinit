@@ -55,12 +55,12 @@ class KtInitTests {
 
     @Test
     fun buildGradleFile() {
-        val template = readResource("build.gradle.mustache")
+        val template = readResource("build.gradle.kts.mustache")
         val ctx = mapOf(
             "groupId" to "com.pk",
             "artifactId" to "testing",
             "mainClass" to "com.pk.MainKt",
-            "deps" to listOf(Dependency("compile", "com.google.guava", "guava"))
+            "deps" to dependencies()
         )
         val merged = Mustache.merge(StringReader(template), ctx)
         println("merged = $merged")
@@ -73,7 +73,7 @@ class KtInitTests {
         val version = "foo"
         val dep = Dependency("compile", groupId, artifactId, version)
         println(dep)
-        val expected = "compile \"com.google.guava:guava:foo\""
+        val expected = "compile(\"com.google.guava:guava:foo\")"
         assertThat(dep.toString()).isEqualTo(expected)
 
         val template = """

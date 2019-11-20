@@ -24,7 +24,7 @@ class JsonTests {
         val gav = """{"group":"com.google.guava","artifact":"guava"}"""
         val fromJson = adapter.fromJson(gav)
         println("parsed $fromJson")
-        assertThat(fromJson.toString()).contains("""implementation "com.google.guava:guava:""")
+        assertThat(fromJson.toString()).contains("""implementation("com.google.guava:guava:""")
     }
 
     @Test
