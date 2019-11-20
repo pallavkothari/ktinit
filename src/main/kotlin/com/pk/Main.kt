@@ -84,12 +84,12 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "com.squareup.okhttp3", "okhttp"),
     Dependency("implementation", "com.google.code.gson", "gson"),
     Dependency("implementation", "com.google.guava", "guava"),
-    Dependency("testImplementation", "io.kotlintest", "kotlintest"),
     Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
     Dependency("testImplementation", "com.google.truth", "truth"),
-    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
+    Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
-    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params")
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"),
+    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console")
 )
 
 fun buildOverlaysForSimpleProject(
@@ -104,7 +104,7 @@ fun buildOverlaysForSimpleProject(
     val pkg = "$group/${inputs[ARTIFACT_ID]}"
 
     return listOf(
-        Overlay("build.gradle.mustache", "build.gradle", ctx),
+        Overlay("build.gradle.kts.mustache", "build.gradle.kts", ctx),
         Overlay("gradle.properties.mustache", "gradle.properties", ctx),
         Overlay("Makefile.mustache", "Makefile", ctx),
         Overlay("README.md.mustache", "README.md", ctx),
