@@ -1,4 +1,4 @@
-import Build_gradle.Properties.kotlin_version
+
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
@@ -11,6 +11,12 @@ object Properties {
     const val guava_version="28.1-jre"
     const val system_rules_version="1.19.0"
     const val truth_version="1.0"
+    const val jupiter_version = "5.6.0-M1"
+    const val argparser_version = "2.0.7"
+    const val moshi_version = "1.9.1"
+    const val slf4j_version = "1.8.0-beta4"
+    const val json_path_version = "2.4.0"
+    const val zt_exec_version = "1.11"
 }
 
 plugins {
@@ -42,24 +48,23 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.6.0-M1")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0-M1")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.0-M1")
-    testImplementation ("io.kotlintest:kotlintest:2.0.7")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:${Properties.jupiter_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Properties.jupiter_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${Properties.jupiter_version}")
 
-    implementation("com.xenomachina:kotlin-argparser:2.0.7")
-    implementation("com.squareup.moshi:moshi:1.9.1")
-    implementation("com.squareup.moshi:moshi-kotlin:1.9.1")
-    implementation("org.slf4j:slf4j-api:1.8.0-beta4")
-    implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
-    implementation("com.jayway.jsonpath:json-path:2.4.0")
-    implementation("org.zeroturnaround:zt-exec:1.11")
+    implementation("com.xenomachina:kotlin-argparser:${Properties.argparser_version}")
+    implementation("com.squareup.moshi:moshi:${Properties.moshi_version}")
+    implementation("com.squareup.moshi:moshi-kotlin:${Properties.moshi_version}")
+    implementation("org.slf4j:slf4j-api:${Properties.slf4j_version}")
+    implementation("org.slf4j:slf4j-simple:${Properties.slf4j_version}")
+    implementation("com.jayway.jsonpath:json-path:${Properties.json_path_version}")
+    implementation("org.zeroturnaround:zt-exec:${Properties.zt_exec_version}")
     implementation("com.github.spullara.mustache.java:compiler:${Properties.mustache_version}")
     implementation("com.squareup.okhttp3:okhttp:${Properties.okhttp_version}")
     implementation("com.google.code.gson:gson:${Properties.gson_version}")
     implementation("com.google.guava:guava:${Properties.guava_version}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Properties.kotlin_version}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${Properties.kotlin_version}")
     testImplementation("com.github.stefanbirkner:system-rules:${Properties.system_rules_version}")
     testImplementation("com.google.truth:truth:${Properties.truth_version}")
 }
