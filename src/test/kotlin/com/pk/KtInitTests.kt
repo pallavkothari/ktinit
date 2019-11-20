@@ -2,8 +2,8 @@ package com.pk
 
 import com.google.common.io.Resources
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import java.io.StringReader
+import org.junit.jupiter.api.Test
 
 class KtInitTests {
 
@@ -86,5 +86,4 @@ class KtInitTests {
         println("merged = $merged")
         assertThat(merged.trim()).isEqualTo(expected)
     }
-
 }

@@ -4,10 +4,10 @@ import com.google.common.base.Preconditions
 import com.google.common.io.CharSource
 import com.google.common.io.Files
 import com.google.common.io.Resources
-import org.zeroturnaround.exec.ProcessExecutor
 import java.io.File
 import java.io.StringReader
 import kotlin.system.exitProcess
+import org.zeroturnaround.exec.ProcessExecutor
 
 class KtGradleProject(private val params: ProjectParams) {
 

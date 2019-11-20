@@ -121,4 +121,3 @@ enum class Option(val templateName: String) {
     MAIN_CLASS("mainClass"),
     DEPS("deps");
 }
-

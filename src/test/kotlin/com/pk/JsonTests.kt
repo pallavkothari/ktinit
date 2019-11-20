@@ -5,8 +5,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import org.junit.Test
-
+import org.junit.jupiter.api.Test
 
 class JsonTests {
 
@@ -40,7 +39,6 @@ class JsonTests {
         val adapter: JsonAdapter<List<Dependency>> = moshi.adapter(type)
         val json = adapter.toJson(deps)
         println("json = $json")
-
 
         val input = """
             [
