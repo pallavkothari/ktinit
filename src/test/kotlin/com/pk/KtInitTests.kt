@@ -21,7 +21,7 @@ class KtInitTests {
             overlays = buildOverlaysForSimpleProject(
                 inputs,
                 listOf(
-                    Dependency("compile", "com.google.guava", "guava", pinnedVersion = "26.0-jre"),
+                    Dependency("compile", "com.google.guava", "guava", pinnedVersion = "28.1-jre"),
                     Dependency("testCompile", "com.google.truth", "truth"),
                     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
                     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
