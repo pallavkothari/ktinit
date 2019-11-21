@@ -31,6 +31,9 @@ plugins {
 
     // spotless
     id("com.diffplug.gradle.spotless") version "3.26.0"
+
+    // this plugin helps us publish to maven repositories (like github packages)
+    `maven-publish`
 }
 
 repositories {
@@ -88,5 +91,25 @@ tasks.withType<Test> {
     useJUnitPlatform()
     testLogging {
         events = setOf(PASSED, FAILED, SKIPPED)
+    }
+}
+
+// https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/pallavkothari/ktinit")
+
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        register("ktinit", MavenPublication::class) {
+            from(components["java"])
+        }
     }
 }
