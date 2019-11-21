@@ -73,7 +73,7 @@ dependencies {
 }
 
 group = "com.pk"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 application {
@@ -106,10 +106,20 @@ publishing {
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
         }
+        // easier to debug with ./gradlew publishKtinitPublicationToInternalRepository
+        maven {
+            name = "internal"
+            url = uri("$buildDir/repos/internal")
+        }
     }
     publications {
         register("ktinit", MavenPublication::class) {
             from(components["java"])
         }
     }
+}
+
+// build sources jar too
+java {
+    withSourcesJar()
 }
