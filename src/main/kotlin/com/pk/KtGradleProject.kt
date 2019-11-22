@@ -4,10 +4,10 @@ import com.google.common.base.Preconditions
 import com.google.common.io.CharSource
 import com.google.common.io.Files
 import com.google.common.io.Resources
+import org.zeroturnaround.exec.ProcessExecutor
 import java.io.File
 import java.io.StringReader
 import kotlin.system.exitProcess
-import org.zeroturnaround.exec.ProcessExecutor
 
 class KtGradleProject(private val params: ProjectParams) {
 
@@ -20,8 +20,7 @@ class KtGradleProject(private val params: ProjectParams) {
 
         exec(dir = proj, cmd = listOf("make"))
         exec(dir = proj, cmd = listOf("make", "run"))
-// TODO: skip the following iff running in github actions
-//        setupGit(proj)
+       setupGit(proj)
         println("😱 Generated project at $proj ")
     }
 
@@ -62,6 +61,11 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     private fun setupGit(proj: File) {
+        // skip if running in github actions
+        // GITHUB_ACTIONS will be "true" if we are
+        if (System.getenv("GITHUB_ACTIONS")?.toBoolean() == true) {
+            return
+        }
         exec(dir = proj, cmd = listOf("git", "init"))
         exec(dir = proj, cmd = listOf("git", "add", "."))
         exec(dir = proj, cmd = listOf("git", "commit", "-m", "'init'", "--allow-empty"))
