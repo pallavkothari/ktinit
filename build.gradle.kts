@@ -1,16 +1,15 @@
-
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 object Properties {
     const val kotlin_version = "1.3.60"
-    const val mustache_version="0.9.6"
-    const val okhttp_version="4.2.2"
-    const val gson_version="2.8.6"
-    const val guava_version="28.1-jre"
-    const val system_rules_version="1.19.0"
-    const val truth_version="1.0"
+    const val mustache_version = "0.9.6"
+    const val okhttp_version = "4.2.2"
+    const val gson_version = "2.8.6"
+    const val guava_version = "28.1-jre"
+    const val system_rules_version = "1.19.0"
+    const val truth_version = "1.0"
     const val jupiter_version = "5.6.0-M1"
     const val argparser_version = "2.0.7"
     const val moshi_version = "1.9.1"
