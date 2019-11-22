@@ -20,8 +20,7 @@ class KtGradleProject(private val params: ProjectParams) {
 
         exec(dir = proj, cmd = listOf("make"))
         exec(dir = proj, cmd = listOf("make", "run"))
-// TODO: skip the following iff running in github actions
-//        setupGit(proj)
+        setupGit(proj)
         println("😱 Generated project at $proj ")
     }
 
@@ -62,6 +61,11 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     private fun setupGit(proj: File) {
+        // skip if running in github actions
+        // GITHUB_ACTIONS will be "true" if we are
+        if (System.getenv("GITHUB_ACTIONS")?.toBoolean() == true) {
+            return
+        }
         exec(dir = proj, cmd = listOf("git", "init"))
         exec(dir = proj, cmd = listOf("git", "add", "."))
         exec(dir = proj, cmd = listOf("git", "commit", "-m", "'init'", "--allow-empty"))

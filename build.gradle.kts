@@ -34,6 +34,8 @@ plugins {
 
     // this plugin helps us publish to maven repositories (like github packages)
     `maven-publish`
+
+    jacoco
 }
 
 repositories {
