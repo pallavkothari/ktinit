@@ -6,6 +6,7 @@ import com.pk.Option.ARTIFACT_ID
 import com.pk.Option.DEPS
 import com.pk.Option.GROUP_ID
 import com.pk.Option.MAIN_CLASS
+import com.pk.Option.USE_ARGPARSER
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
@@ -41,6 +42,11 @@ class MyArgs(parser: ArgParser) {
             else -> throw Exception(this)
         }
     }.default<List<Dependency>>(listOf())
+
+    val useArgParser by parser.flagging(
+        "-p", "--parseArgs",
+        help = "set up command-line arg parsing"
+    )
 }
 
 fun main(args: Array<String>) = mainBody {
@@ -48,14 +54,15 @@ fun main(args: Array<String>) = mainBody {
         args,
         helpFormatter = DefaultHelpFormatter(
             epilogue = "Sample usage: " +
-                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava"
+                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava --parseArgs"
         )
     ).parseInto(::MyArgs).run {
         if (currentDir) println("Creating project in current directory.")
 
         val inputs = mutableMapOf<Option, Any>(
             GROUP_ID to groupId,
-            ARTIFACT_ID to artifactId
+            ARTIFACT_ID to artifactId,
+            USE_ARGPARSER to useArgParser
         )
 
         val projectParams = ProjectParams(
@@ -68,6 +75,8 @@ fun main(args: Array<String>) = mainBody {
         KtGradleProject(projectParams).create()
 
         if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options.")
+
+        if (useArgParser) println("Adding command-line parsing using kotlin-argparser.")
     }
 }
 
@@ -84,6 +93,7 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "com.squareup.okhttp3", "okhttp"),
     Dependency("implementation", "com.google.code.gson", "gson"),
     Dependency("implementation", "com.google.guava", "guava"),
+    Dependency("implementation", "com.xenomachina", "kotlin-argparser"),
     Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
     Dependency("testImplementation", "com.google.truth", "truth"),
     Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
@@ -119,5 +129,6 @@ enum class Option(val templateName: String) {
     GROUP_ID("groupId"),
     ARTIFACT_ID("artifactId"),
     MAIN_CLASS("mainClass"),
-    DEPS("deps");
+    DEPS("deps"),
+    USE_ARGPARSER("args");
 }

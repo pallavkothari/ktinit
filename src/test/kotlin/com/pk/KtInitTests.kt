@@ -11,9 +11,11 @@ class KtInitTests {
     fun genProject() {
         val groupId = "com.pk"
         val artifactId = "test"
+        val useArgParser = true
         val inputs = mutableMapOf<Option, Any>(
             Option.GROUP_ID to groupId,
-            Option.ARTIFACT_ID to artifactId
+            Option.ARTIFACT_ID to artifactId,
+            Option.USE_ARGPARSER to useArgParser
         )
         val params = ProjectParams(
             groupId = groupId,
@@ -22,6 +24,7 @@ class KtInitTests {
                 inputs,
                 listOf(
                     Dependency("compile", "com.google.guava", "guava", pinnedVersion = "28.1-jre"),
+                    Dependency("compile", "com.xenomachina", "kotlin-argparser"),
                     Dependency("testCompile", "com.google.truth", "truth"),
                     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
                     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
