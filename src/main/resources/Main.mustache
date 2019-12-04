@@ -4,6 +4,7 @@ package {{groupId}}.{{artifactId}}
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
+import com.xenomachina.argparser.mainBody
 
 class SimpleArgs(parser: ArgParser) {
     val foo by parser.flagging("-f", "--foo", help = "set flag foo")
@@ -11,7 +12,7 @@ class SimpleArgs(parser: ArgParser) {
 }
 {{/args}}
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>) {{#args}}= mainBody{{/args}} {
     {{#args}}
     ArgParser(
         args,
@@ -22,6 +23,7 @@ fun main(args: Array<String>) {
         )
     ).parseInto(::SimpleArgs).run {
             if (foo) println("Foo is set.")
+            println("bar is $bar.")
     }
     {{/args}}
     println("Hello, World!")

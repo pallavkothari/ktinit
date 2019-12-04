@@ -65,10 +65,18 @@ fun main(args: Array<String>) = mainBody {
             USE_ARGPARSER to useArgParser
         )
 
+        val defaultDependencies = mutableListOf<Dependency>()
+
+        if (useArgParser) {
+            defaultDependencies.add(Dependency("implementation", "com.xenomachina", "kotlin-argparser"))
+        }
+
+        defaultDependencies.addAll(dependencies())
+
         val projectParams = ProjectParams(
             groupId = groupId,
             artifactId = artifactId,
-            overlays = buildOverlaysForSimpleProject(inputs, deps = dependencies.union(dependencies())),
+            overlays = buildOverlaysForSimpleProject(inputs, deps = dependencies.union(defaultDependencies)),
             location = if (currentDir) File(System.getProperty("user.dir")) else Files.createTempDir()
         )
 
@@ -93,7 +101,6 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "com.squareup.okhttp3", "okhttp"),
     Dependency("implementation", "com.google.code.gson", "gson"),
     Dependency("implementation", "com.google.guava", "guava"),
-    Dependency("implementation", "com.xenomachina", "kotlin-argparser"),
     Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
     Dependency("testImplementation", "com.google.truth", "truth"),
     Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
