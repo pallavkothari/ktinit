@@ -17,9 +17,8 @@ fun main(args: Array<String>) {{#args}}= mainBody{{/args}} {
     ArgParser(
         args,
         helpFormatter = DefaultHelpFormatter(
-            prologue = "This is pretty cool usage info.",
-            epilogue = "That was pretty cool usage info." +
-                "Sample usage: simpleApp --foo --bar=swag"
+            prologue = "[{{artifactId}}]",
+            epilogue = "Sample usage: {{artifactId}} --foo --bar=swag"
         )
     ).parseInto(::SimpleArgs).run {
             if (foo) println("Foo is set.")
