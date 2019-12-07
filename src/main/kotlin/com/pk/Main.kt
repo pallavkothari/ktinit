@@ -6,6 +6,7 @@ import com.pk.Option.ARTIFACT_ID
 import com.pk.Option.DEPS
 import com.pk.Option.GROUP_ID
 import com.pk.Option.MAIN_CLASS
+import com.pk.Option.NO_ARG_PARSING
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
@@ -41,6 +42,11 @@ class MyArgs(parser: ArgParser) {
             else -> throw Exception(this)
         }
     }.default<List<Dependency>>(listOf())
+
+    val noArgs by parser.flagging(
+        "-n", "--no-arg-parsing",
+        help = "don't add command line arg parsing capabilities"
+    )
 }
 
 fun main(args: Array<String>) = mainBody {
@@ -48,26 +54,35 @@ fun main(args: Array<String>) = mainBody {
         args,
         helpFormatter = DefaultHelpFormatter(
             epilogue = "Sample usage: " +
-                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava"
+                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava [--no-arg-parsing]"
         )
     ).parseInto(::MyArgs).run {
         if (currentDir) println("Creating project in current directory.")
 
         val inputs = mutableMapOf<Option, Any>(
             GROUP_ID to groupId,
-            ARTIFACT_ID to artifactId
+            ARTIFACT_ID to artifactId,
+            NO_ARG_PARSING to noArgs
         )
+
+        val defaultDependencies = dependencies().toMutableList()
+
+        if (noArgs) {
+            defaultDependencies.removeIf { dep -> dep.artifact.equals("kotlin-argparser") }
+        }
 
         val projectParams = ProjectParams(
             groupId = groupId,
             artifactId = artifactId,
-            overlays = buildOverlaysForSimpleProject(inputs, deps = dependencies.union(dependencies())),
+            overlays = buildOverlaysForSimpleProject(inputs, deps = dependencies.union(defaultDependencies)),
             location = if (currentDir) File(System.getProperty("user.dir")) else Files.createTempDir()
         )
 
         KtGradleProject(projectParams).create()
 
         if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options.")
+
+        if (noArgs) println("Disabling command-line parsing.")
     }
 }
 
@@ -89,7 +104,8 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"),
-    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console")
+    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console"),
+    Dependency("implementation", "com.xenomachina", "kotlin-argparser")
 )
 
 fun buildOverlaysForSimpleProject(
@@ -119,5 +135,6 @@ enum class Option(val templateName: String) {
     GROUP_ID("groupId"),
     ARTIFACT_ID("artifactId"),
     MAIN_CLASS("mainClass"),
-    DEPS("deps");
+    DEPS("deps"),
+    NO_ARG_PARSING("noArgs");
 }
