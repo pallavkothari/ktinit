@@ -54,7 +54,7 @@ fun main(args: Array<String>) = mainBody {
         args,
         helpFormatter = DefaultHelpFormatter(
             epilogue = "Sample usage: " +
-                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava --parseArgs"
+                "ktinit -c --group-id com.pk --artifact-id kotlindemo -d com.google.guava:guava [--no-arg-parsing]"
         )
     ).parseInto(::MyArgs).run {
         if (currentDir) println("Creating project in current directory.")
