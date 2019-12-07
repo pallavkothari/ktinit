@@ -37,6 +37,36 @@ class KtInitTests {
     }
 
     @Test
+    fun genProjectNoArgs() {
+        val groupId = "com.arbizu"
+        val artifactId = "foo"
+        val noArgParsing = true
+        val inputs = mutableMapOf(
+            Option.GROUP_ID to groupId,
+            Option.ARTIFACT_ID to artifactId,
+            Option.NO_ARG_PARSING to noArgParsing
+        )
+        val params = ProjectParams(
+            groupId = groupId,
+            artifactId = artifactId,
+            overlays = buildOverlaysForSimpleProject(
+                inputs,
+                listOf(
+                        Dependency("compile", "com.google.guava", "guava", pinnedVersion = "28.1-jre"),
+                        Dependency("testCompile", "com.google.truth", "truth"),
+                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
+                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
+                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"
+                    )
+                )
+            )
+
+        )
+
+        KtGradleProject(params).create()
+    }
+
+    @Test
     fun stache() {
         val template = StringReader("Hello {{name}}!")
         val ctx = mapOf("name" to "world")
