@@ -6,7 +6,7 @@ import com.pk.Option.ARTIFACT_ID
 import com.pk.Option.DEPS
 import com.pk.Option.GROUP_ID
 import com.pk.Option.MAIN_CLASS
-import com.pk.Option.USE_ARGPARSER
+import com.pk.Option.NO_ARG_PARSING
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
@@ -43,9 +43,9 @@ class MyArgs(parser: ArgParser) {
         }
     }.default<List<Dependency>>(listOf())
 
-    val useArgParser by parser.flagging(
-        "-p", "--parseArgs",
-        help = "set up command-line arg parsing"
+    val noArgs by parser.flagging(
+        "-n", "--no-arg-parsing",
+        help = "don't add command line arg parsing capabilities"
     )
 }
 
@@ -62,16 +62,14 @@ fun main(args: Array<String>) = mainBody {
         val inputs = mutableMapOf<Option, Any>(
             GROUP_ID to groupId,
             ARTIFACT_ID to artifactId,
-            USE_ARGPARSER to useArgParser
+            NO_ARG_PARSING to noArgs
         )
 
-        val defaultDependencies = mutableListOf<Dependency>()
+        val defaultDependencies = dependencies().toMutableList()
 
-        if (useArgParser) {
-            defaultDependencies.add(Dependency("implementation", "com.xenomachina", "kotlin-argparser"))
+        if (noArgs) {
+            defaultDependencies.removeIf { dep -> dep.artifact.equals("kotlin-argparser") }
         }
-
-        defaultDependencies.addAll(dependencies())
 
         val projectParams = ProjectParams(
             groupId = groupId,
@@ -84,7 +82,7 @@ fun main(args: Array<String>) = mainBody {
 
         if (!currentDir) println("\nYou may use the project above or run `ktinit --help` to see more options.")
 
-        if (useArgParser) println("Adding command-line parsing using kotlin-argparser.")
+        if (noArgs) println("Disabling command-line parsing.")
     }
 }
 
@@ -106,7 +104,8 @@ fun dependencies(): List<Dependency> = listOf(
     Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
     Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"),
-    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console")
+    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console"),
+    Dependency("implementation", "com.xenomachina", "kotlin-argparser")
 )
 
 fun buildOverlaysForSimpleProject(
@@ -137,5 +136,5 @@ enum class Option(val templateName: String) {
     ARTIFACT_ID("artifactId"),
     MAIN_CLASS("mainClass"),
     DEPS("deps"),
-    USE_ARGPARSER("args");
+    NO_ARG_PARSING("noArgs");
 }

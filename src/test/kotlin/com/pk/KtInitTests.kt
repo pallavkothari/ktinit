@@ -11,11 +11,11 @@ class KtInitTests {
     fun genProject() {
         val groupId = "com.pk"
         val artifactId = "test"
-        val useArgParser = true
+        val noArgParsing = false
         val inputs = mutableMapOf<Option, Any>(
             Option.GROUP_ID to groupId,
             Option.ARTIFACT_ID to artifactId,
-            Option.USE_ARGPARSER to useArgParser
+            Option.NO_ARG_PARSING to noArgParsing
         )
         val params = ProjectParams(
             groupId = groupId,

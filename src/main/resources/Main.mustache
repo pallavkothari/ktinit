@@ -1,6 +1,6 @@
 package {{groupId}}.{{artifactId}}
 
-{{#args}}
+{{^noArgs}}
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.DefaultHelpFormatter
 import com.xenomachina.argparser.default
@@ -10,10 +10,10 @@ class SimpleArgs(parser: ArgParser) {
     val foo by parser.flagging("-f", "--foo", help = "set flag foo")
     val bar by parser.storing("-b", "--bar", help = "set value for bar").default("baz")
 }
-{{/args}}
+{{/noArgs}}
 
-fun main(args: Array<String>) {{#args}}= mainBody{{/args}} {
-    {{#args}}
+fun main(args: Array<String>) {{^noArgs}}= mainBody{{/noArgs}} {
+    {{^noArgs}}
     ArgParser(
         args,
         helpFormatter = DefaultHelpFormatter(
@@ -24,6 +24,6 @@ fun main(args: Array<String>) {{#args}}= mainBody{{/args}} {
             if (foo) println("Foo is set.")
             println("bar is $bar.")
     }
-    {{/args}}
+    {{/noArgs}}
     println("Hello, World!")
 }
