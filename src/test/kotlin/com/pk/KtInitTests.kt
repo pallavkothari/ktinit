@@ -12,7 +12,7 @@ class KtInitTests {
         val groupId = "com.pk"
         val artifactId = "test"
         val noArgParsing = false
-        val inputs = mutableMapOf<Option, Any>(
+        val inputs = mutableMapOf(
             Option.GROUP_ID to groupId,
             Option.ARTIFACT_ID to artifactId,
             Option.NO_ARG_PARSING to noArgParsing
@@ -52,12 +52,11 @@ class KtInitTests {
             overlays = buildOverlaysForSimpleProject(
                 inputs,
                 listOf(
-                        Dependency("compile", "com.google.guava", "guava", pinnedVersion = "28.1-jre"),
-                        Dependency("testCompile", "com.google.truth", "truth"),
-                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
-                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
-                        Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"
-                    )
+                    Dependency("compile", "com.google.guava", "guava", pinnedVersion = "28.1-jre"),
+                    Dependency("testCompile", "com.google.truth", "truth"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-engine"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
+                    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params")
                 )
             )
 

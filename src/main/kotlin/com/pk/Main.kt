@@ -68,7 +68,7 @@ fun main(args: Array<String>) = mainBody {
         val defaultDependencies = dependencies().toMutableList()
 
         if (noArgs) {
-            defaultDependencies.removeIf { dep -> dep.artifact.equals("kotlin-argparser") }
+            defaultDependencies.removeIf { dep -> dep.artifact == "kotlin-argparser" }
         }
 
         val projectParams = ProjectParams(
