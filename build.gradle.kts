@@ -3,9 +3,9 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 
 object Properties {
-    const val kotlin_version = "1.3.70"
+    const val kotlin_version = "1.3.72"
     const val mustache_version = "0.9.6"
-    const val okhttp_version = "4.5.0"
+    const val okhttp_version = "4.7.2"
     const val gson_version = "2.8.6"
     const val guava_version = "29.0-jre"
     const val system_rules_version = "1.19.0"
@@ -20,7 +20,7 @@ object Properties {
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.3.70"     // I would like to reference a const here but that doesn't work from the command line even tho Intellij is OK with it
+    id("org.jetbrains.kotlin.jvm") version "1.3.72"     // I would like to reference a const here but that doesn't work from the command line even tho Intellij is OK with it
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -29,12 +29,14 @@ plugins {
     idea
 
     // spotless
-    id("com.diffplug.gradle.spotless") version "3.28.1"
+    id("com.diffplug.gradle.spotless") version "4.0.1"
 
     // this plugin helps us publish to maven repositories (like github packages)
     `maven-publish`
 
     jacoco
+
+    id("com.github.ben-manes.versions") version "0.28.0"
 }
 
 repositories {
