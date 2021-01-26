@@ -81,7 +81,7 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 application {
     // Define the main class for the application.
-    mainClassName = "com.pk.MainKt"
+    mainClass.set("com.pk.MainKt")
 }
 
 spotless {
