@@ -31,7 +31,7 @@ plugins {
     // spotless
     id("com.diffplug.spotless") version "5.16.0"
 
-    // this plugin helps us publish to maven repositories (like github packages)
+    // this plugin helps us publish to maven repositories (like GitHub packages)
     `maven-publish`
 
     jacoco

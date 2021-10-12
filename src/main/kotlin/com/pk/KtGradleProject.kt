@@ -25,7 +25,7 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     /**
-     * setup the gradle wrapper (along with the jar and properties file)
+     * set up the gradle wrapper (along with the jar and properties file)
      * under the given project directory.
      * @return the absolute path to the (executable) gradlew script
      */
@@ -61,7 +61,7 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     private fun setupGit(proj: File) {
-        // skip if running in github actions
+        // skip if running in GitHub Actions
         // GITHUB_ACTIONS will be "true" if we are
         if (System.getenv("GITHUB_ACTIONS")?.toBoolean() == true) {
             return
@@ -101,9 +101,7 @@ data class Dependency(
     val pinnedVersion: String = ""
 ) {
     private val version: String by lazy {
-        if (pinnedVersion.isNotEmpty()) {
-            pinnedVersion
-        } else {
+        pinnedVersion.ifEmpty {
             MavenVersion(group, artifact).getLatest()
         }
     }
