@@ -21,7 +21,8 @@ object Http {
                 r.code,
                 r.body.use { body ->
                     body?.string() ?: ""
-                })
+                }
+            )
         }
     }
 }

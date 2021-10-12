@@ -1,9 +1,9 @@
 package com.pk
 
 import com.google.common.io.Files
-import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class FilesTests {
 
