@@ -1,6 +1,5 @@
 package com.pk
 
-import java.util.Arrays
 import junit.framework.TestCase.assertTrue
 import junit.framework.TestCase.fail
 import org.hamcrest.CoreMatchers.`is`
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.zeroturnaround.exec.InvalidExitValueException
 import org.zeroturnaround.exec.ProcessExecutor
 import org.zeroturnaround.exec.ProcessInitException
+import java.util.Arrays
 
 /**
  * tests for the `zt-exec` library

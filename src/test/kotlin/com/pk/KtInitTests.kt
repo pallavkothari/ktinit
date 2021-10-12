@@ -2,8 +2,8 @@ package com.pk
 
 import com.google.common.io.Resources
 import com.google.common.truth.Truth.assertThat
-import java.io.StringReader
 import org.junit.jupiter.api.Test
+import java.io.StringReader
 
 class KtInitTests {
 
