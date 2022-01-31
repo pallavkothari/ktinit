@@ -1,9 +1,9 @@
 package com.pk
 
-import junit.framework.TestCase.assertTrue
-import junit.framework.TestCase.fail
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
 import org.zeroturnaround.exec.InvalidExitValueException
 import org.zeroturnaround.exec.ProcessExecutor
@@ -27,12 +27,11 @@ class ZtExecTests {
         try {
             exit = ProcessExecutor().command("lkasdjflsajf", "-version")
                 .execute().exitValue
+            fail()
         } catch (e: ProcessInitException) {
             assertThat(exit, `is`(-1))
             return
         }
-
-        fail()
     }
 
     @Test

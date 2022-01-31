@@ -10,13 +10,13 @@ object Http {
     private val client = OkHttpClient()
 
     /**
-     * helper to execute and unpack the okhttp response
+     * helper to execute and unpack the okHttp response
      */
     fun exec(req: Request): MyHttpResponse {
         val call = client.newCall(req)
         val response = call.execute()
-        response.use { r ->
-            return MyHttpResponse(
+        return response.use { r ->
+            MyHttpResponse(
                 r.isSuccessful,
                 r.code,
                 r.body.use { body ->

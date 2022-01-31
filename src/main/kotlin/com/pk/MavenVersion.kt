@@ -17,7 +17,6 @@ class MavenVersion(groupId: String, artifactId: String) {
 
         val versions: List<String> = JsonPath.read(resp.body, "$.response.docs[*].latestVersion")
 //        println("version = $versions")
-        assert(versions.size == 1) { "got back more than one artifact: $versions" }
-        return versions[0]
+        return versions.singleOrNull() ?: error("got back more than one artifact: $versions")
     }
 }
