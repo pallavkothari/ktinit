@@ -13,8 +13,8 @@ object Properties {
     const val jupiter_version = "5.8.2"
     const val argparser_version = "2.0.7"
     const val moshi_version = "1.13.0"
-    const val slf4j_version = "1.7.33"
-    const val json_path_version = "2.6.0"
+    const val slf4j_version = "1.7.35"
+    const val json_path_version = "2.7.0"
     const val zt_exec_version = "1.12"
 }
 
@@ -29,7 +29,7 @@ plugins {
     idea
 
     // spotless
-    id("com.diffplug.spotless") version "5.16.0"
+    id("com.diffplug.spotless") version "6.2.0"
 
     // this plugin helps us publish to maven repositories (like GitHub packages)
     `maven-publish`
