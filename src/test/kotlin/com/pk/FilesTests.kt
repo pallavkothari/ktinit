@@ -1,7 +1,7 @@
 package com.pk
 
 import com.google.common.io.Files
-import org.junit.Assert.assertTrue
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -11,7 +11,7 @@ class FilesTests {
     fun testLs() {
         val dir = "/tmp"
         val traverser = Files.fileTraverser()
-        for (file in traverser.breadthFirst(File(dir))) {
+        traverser.breadthFirst(File(dir)).forEach { file ->
             println(file.absolutePath)
         }
     }

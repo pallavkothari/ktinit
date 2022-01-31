@@ -9,6 +9,8 @@ import java.io.File
 import java.io.StringReader
 import kotlin.system.exitProcess
 
+private const val EXIT_CODE_ERROR = 1
+
 class KtGradleProject(private val params: ProjectParams) {
 
     fun create() {
@@ -25,16 +27,16 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     /**
-     * set up the gradle wrapper (along with the jar and properties file)
+     * set up the Gradle wrapper (along with the JAR and properties file)
      * under the given project directory.
      * @return the absolute path to the (executable) gradlew script
      */
     private fun setupGradleWrapper(proj: File): String {
         // there is a gradlew file checked into source control under resources
-        // at runtime we will copy it to a well known location so that we can rely on gradle being available
+        // at runtime we will copy it to a well-known location so that we can rely on Gradle being available
         copyResourceToDir("gradlew", proj)
 
-        // do the same for the jar and properties file
+        // do the same for the JAR and properties file
         val wrapperDir = File(proj.absolutePath + "/gradle/wrapper/")
         copyResourceToDir("gradle-wrapper.jar", wrapperDir)
         copyResourceToDir("gradle-wrapper.properties", wrapperDir)
@@ -46,7 +48,7 @@ class KtGradleProject(private val params: ProjectParams) {
     }
 
     private fun process(overlays: List<Overlay>, proj: File) {
-        for (overlay in overlays) {
+        overlays.forEach { overlay ->
             val template = readResource(overlay.template)
             val dest = File(proj, overlay.dest)
             Files.createParentDirs(dest)
@@ -83,7 +85,7 @@ class KtGradleProject(private val params: ProjectParams) {
         } catch (e: Exception) {
             System.err.println(e.localizedMessage)
             println(help)
-            exitProcess(1)
+            exitProcess(EXIT_CODE_ERROR)
         }
     }
 }

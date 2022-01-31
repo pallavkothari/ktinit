@@ -24,7 +24,7 @@ class MyArgs(parser: ArgParser) {
         help = "the group ID for this project"
     ).default("com.example")
 
-    val artifactId by parser.storing(
+    val artifactId: String by parser.storing(
         "-a", "--artifact-id",
         help = "the artifact ID for this project"
     ) {
@@ -112,7 +112,7 @@ fun buildOverlaysForSimpleProject(
     inputs: MutableMap<Option, Any>,
     deps: Iterable<Dependency> = dependencies()
 ): List<Overlay> {
-    // build ctx to pass to mustache
+    // build ctx to pass to Mustache
     inputs[MAIN_CLASS] = "${inputs[GROUP_ID]}.${inputs[ARTIFACT_ID]}.MainKt"
     inputs[DEPS] = deps
     val ctx = inputs.mapKeys { it.key.templateName }
@@ -130,7 +130,7 @@ fun buildOverlaysForSimpleProject(
     )
 }
 
-// keeping these around for mustache context keys
+// keeping these around for Mustache context keys
 enum class Option(val templateName: String) {
     GROUP_ID("groupId"),
     ARTIFACT_ID("artifactId"),
