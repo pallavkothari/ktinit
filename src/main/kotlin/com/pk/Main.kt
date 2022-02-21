@@ -94,18 +94,18 @@ data class ProjectParams(
 )
 
 fun dependencies(): List<Dependency> = listOf(
-    Dependency("implementation", "org.slf4j", "slf4j-api"),
-    Dependency("implementation", "org.slf4j", "slf4j-simple"),
+    Dependency("implementation", "org.slf4j", "slf4j-api", "1.7.36"),
+    Dependency("implementation", "org.slf4j", "slf4j-simple", "1.7.36"),
     Dependency("implementation", "com.squareup.okhttp3", "okhttp", "4.9.3"),
-    Dependency("implementation", "com.google.code.gson", "gson"),
-    Dependency("implementation", "com.google.guava", "guava"),
-    Dependency("testImplementation", "com.github.stefanbirkner", "system-rules"),
-    Dependency("testImplementation", "com.google.truth", "truth"),
-    Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine"),
-    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api"),
-    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params"),
-    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console"),
-    Dependency("implementation", "com.xenomachina", "kotlin-argparser")
+    Dependency("implementation", "com.google.code.gson", "gson", "2.9.0"),
+    Dependency("implementation", "com.google.guava", "guava", "31.0.1-jre"),
+    Dependency("testImplementation", "com.github.stefanbirkner", "system-rules", "1.19.0"),
+    Dependency("testImplementation", "com.google.truth", "truth", "1.1.3"),
+    Dependency("testRuntimeOnly", "org.junit.jupiter", "junit-jupiter-engine", "5.8.2"),
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-api", "5.8.2"),
+    Dependency("testImplementation", "org.junit.jupiter", "junit-jupiter-params", "5.8.2"),
+    Dependency("testRuntimeOnly", "org.junit.platform", "junit-platform-console", "1.8.2"),
+    Dependency("implementation", "com.xenomachina", "kotlin-argparser", "2.0.7")
 )
 
 fun buildOverlaysForSimpleProject(
