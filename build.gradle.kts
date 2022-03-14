@@ -6,14 +6,14 @@ object Properties {
     const val kotlin_version = "1.6.10"
     const val mustache_version = "0.9.10"
     const val okhttp_version = "4.9.3"
-    const val gson_version = "2.8.9"
-    const val guava_version = "31.0.1-jre"
+    const val gson_version = "2.9.0"
+    const val guava_version = "31.1-jre"
     const val system_rules_version = "1.19.0"
     const val truth_version = "1.1.3"
     const val jupiter_version = "5.8.2"
     const val argparser_version = "2.0.7"
     const val moshi_version = "1.13.0"
-    const val slf4j_version = "1.7.35"
+    const val slf4j_version = "1.7.36"
     const val json_path_version = "2.7.0"
     const val zt_exec_version = "1.12"
 }
@@ -29,14 +29,14 @@ plugins {
     idea
 
     // spotless
-    id("com.diffplug.spotless") version "6.2.0"
+    id("com.diffplug.spotless") version "6.3.0"
 
     // this plugin helps us publish to maven repositories (like GitHub packages)
     `maven-publish`
 
     jacoco
 
-    id("com.github.ben-manes.versions") version "0.41.0"
+    id("com.github.ben-manes.versions") version "0.42.0"
 }
 
 repositories {
