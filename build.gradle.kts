@@ -40,8 +40,7 @@ plugins {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
