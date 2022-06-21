@@ -96,7 +96,7 @@ data class ProjectParams(
 fun dependencies(): List<Dependency> = listOf(
     Dependency("implementation", "org.slf4j", "slf4j-api", "1.7.36"),
     Dependency("implementation", "org.slf4j", "slf4j-simple", "1.7.36"),
-    Dependency("implementation", "com.squareup.okhttp3", "okhttp", "4.9.3"),
+    Dependency("implementation", "com.squareup.okhttp3", "okhttp", "4.10.0"),
     Dependency("implementation", "com.google.code.gson", "gson", "2.9.0"),
     Dependency("implementation", "com.google.guava", "guava", "31.1-jre"),
     Dependency("testImplementation", "com.github.stefanbirkner", "system-rules", "1.19.0"),
