@@ -15,24 +15,28 @@ import java.io.File
 
 class MyArgs(parser: ArgParser) {
     val currentDir by parser.flagging(
-        "-c", "--current-dir",
+        "-c",
+        "--current-dir",
         help = "create project in current directory"
     )
 
     val groupId by parser.storing(
-        "-g", "--group-id",
+        "-g",
+        "--group-id",
         help = "the group ID for this project"
     ).default("com.example")
 
     val artifactId: String by parser.storing(
-        "-a", "--artifact-id",
+        "-a",
+        "--artifact-id",
         help = "the artifact ID for this project"
     ) {
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, this) // convert hyphens to camel case
     }.default("ktfoo")
 
     val dependencies by parser.adding(
-        "-d", "--dep",
+        "-d",
+        "--dep",
         help = "provide additional dependencies in the format <groupId>:<artifactId>[:version]"
     ) {
         val parts = this.split(":")
@@ -44,7 +48,8 @@ class MyArgs(parser: ArgParser) {
     }.default<List<Dependency>>(listOf())
 
     val noArgs by parser.flagging(
-        "-n", "--no-arg-parsing",
+        "-n",
+        "--no-arg-parsing",
         help = "don't add command line arg parsing capabilities"
     )
 }

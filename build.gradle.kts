@@ -29,7 +29,7 @@ plugins {
     idea
 
     // spotless
-    id("com.diffplug.spotless") version "6.7.2"
+    id("com.diffplug.spotless") version "6.11.0"
 
     // this plugin helps us publish to maven repositories (like GitHub packages)
     `maven-publish`
