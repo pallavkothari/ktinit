@@ -8,6 +8,6 @@ class SillyTest {
     @Test
     fun silly() {
         assertThat(true).isTrue()
-        assertThat(1L).isGreaterThan(0)
+        assertThat(1L).isGreaterThan(0L)
     }
 }
